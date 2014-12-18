@@ -62,7 +62,10 @@
   </head>
   <body>
     <div id="header" class="clearfix">
-      <div id="count"><%= Delayed::Job.count %></div>
+      <div id="count">
+        <%= Delayed::Job.group(:priority).count.sort_by(&:first).map{|p| p * ' => '}*', ' %>
+        total <%= Delayed::Job.count %>
+      </div>
       <h1>Delayed Job Admin</h1>
     </div>
     <div id="content">
